@@ -1,0 +1,19 @@
+<h1>Account details</h1>
+<%= link_to "Back", accounts_path %>
+<p>Name: <%= @account.name %></p>
+
+<div style="display: flex; gap: 4px;">
+  <%= button_to "Edit Account", edit_account_path(@account), method: :get %>
+  <%= button_to "View Subscriptions", account_subscriptions_path(@account.id), method: :get %>
+  <%= button_to "Add User", new_account_user_path(@account.id), method: :get %>
+  <%= link_to "Manage licenses", account_license_assignments_path(@account.id), method: :get %>
+</div>
+<ul>
+  <% @users.each do |user| %>
+    <li>
+      <p>Name: <%= user.name %></p>
+      <p>Email: <%= user.email %></p>
+      <%= link_to "edit", edit_account_user_path(@account.id, user.id) %>
+    </li>
+  <% end %>
+</ul

@@ -1,0 +1,10 @@
+<h1>Accounts list</h1>
+<%= button_to "New Account", new_account_path, method: :get %>
+<%= button_to "Products List", products_path, method: :get %>
+<ul>
+  <% @accounts.each do |account| %>
+    <li>
+      <%= link_to account.name, account %>
+    </li>
+  <% end %>
+</ul
