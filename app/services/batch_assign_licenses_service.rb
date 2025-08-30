@@ -22,7 +22,9 @@ class BatchAssignLicensesService
       if has_enough_licenses_available?(tmp_new_licenses, product_count)
         @new_licenses.push(*tmp_new_licenses)
       else
-        @availability_errors << "Not enough licenses for #{products.find(product_id).name}. Available: #{product_count.available_licenses}"
+        available_licenses = product_count.available_licenses - product_count.consumed_licenses
+        msg = "Not enough licenses for #{products.find(product_id).name}. Available: #{available_licenses}"
+        @availability_errors << msg
       end
     end
 

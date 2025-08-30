@@ -1,12 +1,41 @@
+<%= button_to "Back", account_path(@account.id), method: :get %>
 <h1>Subscriptions list</h1>
-<%= link_to "Back", account_path(@account.id) %>
 <%= button_to "New Subscription", new_account_subscription_path(@account.id), method: :get %>
-<ul>
-  <% @subscriptions.each do |subscription| %>
-    <li>
-      <p><%= subscription.id %> - <%= subscription.product.name %> - <%= format_date_time(subscription.expires_at) %><p>
-      <%= link_to "edit", edit_account_subscription_path(@account.id, subscription.id) %>
-    </li>
-  <% end %>
-</ul
+<table>
+  <thead>
+    <tr>
+      <th>Product Name</th>
+      <th>Issued At</th>
+      <th>Expires At</th>
+      <th>Number of Licenses</th>
+      <th>Created At</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @subscriptions.each do |subscription| %>
+      <tr>
+        <td>
+          <%= subscription.product.name %>
+        </td>
+        <td>
+          <%= format_date_time(subscription.issued_at) %>
+        </td>
+        <td>
+          <%= format_date_time(subscription.expires_at) %>
+        </td>
+        <td style="text-align: center;">
+          <%= subscription.number_of_licenses %>
+        </td>
+        <td>
+          <%= format_date_time(subscription.created_at) %>
+        </td>
+        <td>
+          <%= button_to "Edit", edit_account_subscription_path(@account.id, subscription.id), method: :get %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 

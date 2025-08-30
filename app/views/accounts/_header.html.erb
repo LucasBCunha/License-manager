@@ -1,0 +1,8 @@
+<%= button_to "Back", back_path, method: :get %>
+<% if defined?(content) && content.present? %>
+  <h1><%= content %></h1>
+<% elsif defined?(@account) && @account.present? %>
+  <h1>Account: <%= @account.name %></h1>
+<% else %>
+  <h1>Admin - License Management System</h1>
+<% end %>

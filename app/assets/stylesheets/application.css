@@ -17,6 +17,24 @@
   background-color: #f0afaf;
  }
 
+ .buttons-line {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+ }
+
+ .button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.button-container input {
+  width: 100%;
+}
+
  button, input {
   border-radius: 8px;
  }

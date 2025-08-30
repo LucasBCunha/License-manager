@@ -4,6 +4,7 @@ class Accounts::LicenseAssignmentsController < ApplicationController
 
   def index
     @users = @account.users.order(:name)
+    @errors = session.delete(:errors)
   end
 
   def assign
@@ -26,6 +27,7 @@ class Accounts::LicenseAssignmentsController < ApplicationController
       session.delete(:errors)
     else
       session[:errors] = result.errors
+      @errors = result.errors
     end
 
     redirect_to account_license_assignments_path(@account)
