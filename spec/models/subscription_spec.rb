@@ -17,13 +17,23 @@ RSpec.describe Subscription, type: :model do
   end
 
   describe 'validations' do
+    let(:active_subscription) do
+      Subscription.create!(
+        number_of_licenses: 5,
+        account: account,
+        product: product,
+        issued_at: DateTime.parse('03/01/2025') - 1.day,
+        expires_at: DateTime.parse('03/01/2025') + 1.day
+      )
+    end
+
     it 'is valid with valid attributes' do
       subscription = Subscription.new(
         account: account,
         product: product,
         number_of_licenses: 5,
-        issued_at: Date.today,
-        expires_at: Date.today + 30
+        issued_at: DateTime.parse('03/01/2025'),
+        expires_at: DateTime.parse('03/01/2025') + 30
       )
       expect(subscription).to be_valid
     end
@@ -56,6 +66,31 @@ RSpec.describe Subscription, type: :model do
       subscription = Subscription.new(account: account, product: product, number_of_licenses: 0, issued_at: Date.today, expires_at: Date.today + 30)
       expect(subscription).not_to be_valid
       expect(subscription.errors[:number_of_licenses]).to include("must be greater than 0")
+    end
+
+    it 'is valid outside of interval active subscription' do
+      active_subscription
+      new_subscription = Subscription.new(
+        number_of_licenses: 3,
+        account: account,
+        product: product,
+        issued_at: active_subscription.expires_at + 1.hour,
+        expires_at: active_subscription.expires_at + 30.days
+      )
+      expect(new_subscription).to be_valid
+    end
+
+    it 'is invalid with an active subscription for the same account and product' do
+      active_subscription
+      invalid_subscription = Subscription.new(
+        number_of_licenses: 2,
+        account: account,
+        product: product,
+        issued_at: active_subscription.issued_at - 2.days,
+        expires_at: active_subscription.issued_at + 2.days
+      )
+      expect(invalid_subscription).not_to be_valid
+      expect(invalid_subscription.errors[:base]).to include("Only one active subscription is allowed for this account and product.")
     end
   end
 end

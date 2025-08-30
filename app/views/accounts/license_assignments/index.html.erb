@@ -1,0 +1,32 @@
+<h1>Account: <%= @account.name%></h1>
+<%= link_to "Back", account_path(@account.id) %>
+
+<p><%= @errors %></p>
+<% if session[:errors].present? %>
+  <div class="error-message-block">
+    <ul>
+      <% session[:errors].each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with url: assign_account_license_assignments_path(@account), method: :post do |form| %>
+  <div style="display: flex; align-items: center;">
+    <div>
+      <h2>Product Licenses</h2>
+      <%= form.collection_select :product_ids, @products, :id, proc { |product| format_subscription_text(product) },
+        {}, { multiple: true, size: 5, style: "width: 400px;" }%>
+    </div>
+    <div>
+      <%= form.submit 'Assign', name: 'commit', id: 'assign-button' %>
+      <%= form.submit 'Unassign', name: 'commit', id: 'unassign-button' %>
+    </div>
+    <div>
+      <h2>Users</h2>
+      <%= form.collection_select :user_ids, @users, :id, :name,
+        {}, { multiple: true, size: 5, style: "width: 400px;" }%>
+    </div>
+  </div>
+<% end %>
