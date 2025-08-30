@@ -1,0 +1,16 @@
+<%= form_with model: [@account, @user]  do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+    <%= field_error(@user, :name) %>
+  </div>
+  <div>
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+    <%= field_error(@user, :email) %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

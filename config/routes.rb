@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   root "accounts#index"
   resources :products
   resources :accounts do
+    resources :users, only: [ :new, :create, :edit, :update ], module: :accounts
   end
 end
