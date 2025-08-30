@@ -1,5 +1,5 @@
+<%= button_to "Back", products_path %>
 <h1>Product details</h1>
-<%= link_to "Back", products_path %>
 <%= button_to "Edit product", edit_product_path(@product), method: :get %>
 <p>Name: <%= @product.name %></p>
 <p>Description: <%= @product.description %></p>
