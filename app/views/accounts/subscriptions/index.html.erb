@@ -1,0 +1,12 @@
+<h1>Subscriptions list</h1>
+<%= link_to "Back", account_path(@account.id) %>
+<%= button_to "New Subscription", new_account_subscription_path(@account.id), method: :get %>
+<ul>
+  <% @subscriptions.each do |subscription| %>
+    <li>
+      <p><%= subscription.id %> - <%= subscription.product.name %> - <%= format_date_time(subscription.expires_at) %><p>
+      <%= link_to "edit", edit_account_subscription_path(@account.id, subscription.id) %>
+    </li>
+  <% end %>
+</ul
+

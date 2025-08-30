@@ -1,0 +1,29 @@
+<%= form_with model: [@account, @subscription]  do |form| %>
+    <div>
+    <%= form.label :product_id, "Product" %>
+    <%= form.collection_select :product_id, @product_options, :id, :name, prompt: "Select a product" %>
+    <%= field_error(@subscription, :product) %>
+  </div>
+
+  <div>
+    <%= form.label :number_of_licenses %>
+    <%= form.number_field :number_of_licenses %>
+    <%= field_error(@subscription, :number_of_licenses) %>
+  </div>
+
+  <div>
+    <%= form.label :issued_at %>
+    <%= form.datetime_field :issued_at %>
+    <%= field_error(@subscription, :issued_at) %>
+  </div>
+
+  <div>
+    <%= form.label :expires_at %>
+    <%= form.datetime_field :expires_at %>
+    <%= field_error(@subscription, :expires_at) %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
