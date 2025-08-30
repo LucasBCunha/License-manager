@@ -1,0 +1,11 @@
+<h1>Product list</h1>
+<%= link_to "Back", accounts_path %>
+<%= button_to "New Product", new_product_path, method: :get %>
+
+<ul>
+  <% @products.each do |product| %>
+    <li>
+      <%= link_to product.name, product %>
+    </li>
+  <% end %>
+</ul
