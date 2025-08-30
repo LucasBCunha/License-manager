@@ -25,7 +25,7 @@ RSpec.describe "Accounts", type: :request do
 
   describe "POST /" do
     it "returns http success" do
-      post "/accounts", params: { account: { name: 'Name' }}
+      post "/accounts", params: { account: { name: 'Name' } }
       expect(response).to have_http_status(:redirect)
       expect(Account.count).to eq(1)
     end

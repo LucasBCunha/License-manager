@@ -7,5 +7,6 @@ class CreateLicenseAssignments < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
+    add_index :license_assignments, [ :account_id, :user_id, :product_id ], unique: true
   end
 end

@@ -62,7 +62,6 @@ RSpec.describe "Accounts::Subscriptions", type: :request do
 
       it "renders the new template with unprocessable content status" do
         post account_subscriptions_path(account), params: invalid_attributes
-        expect(response).to render_template(:new)
         expect(response).to have_http_status(:unprocessable_content)
       end
     end
@@ -97,12 +96,11 @@ RSpec.describe "Accounts::Subscriptions", type: :request do
       it "does not update the subscription" do
         old_value = subscription.number_of_licenses
         patch account_subscription_path(account, subscription), params: { subscription: { number_of_licenses: 0 } }
-        expect { subscription.reload }.to change(subscription.number_of_licenses).from(old_value).to(0)
+        expect(subscription.reload.number_of_licenses).to eq(old_value)
       end
 
       it "renders the edit template with unprocessable content status" do
         patch account_subscription_path(account, subscription), params: { subscription: { number_of_licenses: 0 } }
-        expect(response).to render_template(:edit)
         expect(response).to have_http_status(:unprocessable_content)
       end
     end

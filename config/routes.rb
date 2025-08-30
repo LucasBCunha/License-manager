@@ -8,5 +8,11 @@ Rails.application.routes.draw do
   resources :products
   resources :accounts do
     resources :users, only: [ :new, :create, :edit, :update ], module: :accounts
+    resources :subscriptions, only: [ :new, :create, :index, :edit, :update ], module: :accounts
+    resources :license_assignments, only: [ :index ], module: :accounts  do
+      collection do
+        post :assign
+      end
+    end
   end
 end

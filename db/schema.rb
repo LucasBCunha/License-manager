@@ -15,7 +15,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_29_160636) do
   enable_extension "pg_catalog.plpgsql"
 
   create_table "accounts", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -26,6 +26,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_29_160636) do
     t.bigint "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id", "user_id", "product_id"], name: "idx_on_account_id_user_id_product_id_70319b1170", unique: true
     t.index ["account_id"], name: "index_license_assignments_on_account_id"
     t.index ["product_id"], name: "index_license_assignments_on_product_id"
     t.index ["user_id"], name: "index_license_assignments_on_user_id"

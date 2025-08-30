@@ -8,3 +8,15 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+ .error-message {
+  color: #fa4444;
+ }
+
+ .error-message-block {
+  background-color: #f0afaf;
+ }
+
+ button, input {
+  border-radius: 8px;
+ }
